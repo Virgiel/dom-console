@@ -1,5 +1,5 @@
 window.addEventListener('load', () => {
-  let lineCount = 0;
+  let lineCount = 1;
   const table = document.createElement('table');
   table.id = 'dom-console';
   table.setAttribute('cellspacing', 0);
@@ -7,17 +7,20 @@ window.addEventListener('load', () => {
   const style = document.createElement('style');
   style.textContent = /*css*/ `
       #dom-console {
-        margin: 8px;
+        padding: 16px;
         margin: 0 auto;
-        max-width: 1200px;
+        width: 100%;
+        max-width: 100%;
         font-size: 1.1rem;
+        table-layout: fixed;
       }
-      
       #dom-console td {
         color: black;
         background: #f5f5f5;
         padding: 0.4rem;
         white-space: pre-wrap;
+        overflow-wrap: break-word;
+        hyphens: auto;
       }
       #dom-console td:nth-child(1) {
         text-align: center;
@@ -25,6 +28,7 @@ window.addEventListener('load', () => {
         font-weight: bold;
         background: #eaeaea;
         white-space: nowrap;
+        width: 0.7em;
       }
 
       /* ----- Round corner ----- */
@@ -175,14 +179,16 @@ window.addEventListener('load', () => {
   window.success = data => addConsoleLine(data, 'success');
   window.info = data => addConsoleLine(data, 'info');
   window.input = query => addInputLine(query);
+  window.clear = () => {
+    table.textContent = '';
+    lineCount = 1;
+  };
 
   // Link normal console function
   window.console.log = data => window.print(data);
   window.console.error = data => window.err(data);
   window.console.warn = data => window.warn(data);
   window.console.info = data => window.info(data);
-
-  console.info('test info');
 
   // Link global error handler
   window.onerror = event => window.err(event);
