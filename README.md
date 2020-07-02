@@ -23,13 +23,13 @@ And then create a javascript file named `code.js` in the same directory with the
 print('Hello world!');
 ```
 
-You can now open the html file in your browser and you should see line containing "Hello world!". You are ready to code!
+You can now open the html file in your browser and you should see a line containing "Hello world!". You are ready to code!
 
-> What you have there is not a real website, if you want to learn real web development I can recommend you this [tutorials](https://developer.mozilla.org/en-US/docs/Learn).
+> What you have there is not a real website, if you want to learn real web development I can recommend these [tutorials](https://developer.mozilla.org/en-US/docs/Learn).
 
 ## Usage
 
-This library automatically append the dom console to the document body. All console.\* calls are redirected.
+This library automatically appends the dom console to the document body. All console.\* calls are redirected.
 
 ## API
 
