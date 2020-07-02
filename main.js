@@ -1,10 +1,10 @@
-window.addEventListener('load', () => {
-  let lineCount = 1;
-  const grid = document.createElement('div');
-  grid.id = 'dom-console';
-  document.body.appendChild(grid);
-  const style = document.createElement('style');
-  style.textContent = /*css*/ `
+{
+  /** Create the dom console grid and it's associated style */
+  function createGrid() {
+    const grid = document.createElement('div');
+    grid.id = 'dom-console';
+    const style = document.createElement('style');
+    style.textContent = /*css*/ `
     #dom-console {
       margin: 0 auto;
       max-width: 100%;
@@ -134,13 +134,18 @@ window.addEventListener('load', () => {
       }
     }
   `;
-  document.head.appendChild(style);
+    return [grid, style];
+  }
 
+  let lineCount = 1;
+  let [grid, style] = createGrid();
+
+  /** Format JS object as readable string (WIP) */
   function prettyFormat(object) {
     return JSON.stringify(object);
   }
 
-  // Add a new line on the dom console
+  /** Add a new line on the dom console */
   function addConsoleLine(content, type) {
     if (typeof content == 'object') {
       content = prettyFormat(content);
@@ -157,7 +162,7 @@ window.addEventListener('load', () => {
     grid.appendChild(lineContent);
   }
 
-  // Add an input line
+  /** Add an input line */
   function addInputLine(query) {
     // Add the query line
     const queryInfo = document.createElement('div');
@@ -214,8 +219,8 @@ window.addEventListener('load', () => {
   // Link global error handler
   window.onerror = event => window.err(event);
 
-  // Call the main function if it exist
-  if (window.main) {
-    window.main();
-  }
-});
+  window.addEventListener('load', () => {
+    document.body.appendChild(grid);
+    document.head.appendChild(style);
+  });
+}

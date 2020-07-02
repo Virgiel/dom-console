@@ -1,29 +1,35 @@
 # DOM Console
 
-I find Javascript to be a good language for learning to program. Hot reloading and the fact that each browser is a JS IDE helps beginners, but the need to learn HTML and CSS as well is an issue.
+This is a DOM-based console library. My goal is to ally the advantage of the javascript language, such as hot reloading and ubiquitous browser support, with the simplicity of the console interface of other languages like python.
 
-I created this library to give people I teach programming a console interface similar to what you can have with Python or C.
+I think beginners should not have to learn HTML, CSS, DevTools, or install any compiler or library to start learning to code. Just copy two lines of code in an HTML file and start learning.
 
-![Demo](./assets/example.html)
+![Demo](./assets/demo.gif)
 
 **Disclaimer: This project is intended for my personal use and I will not improve or maintain it if I do not have the use of it. But you are free to use and copy my code.**
 
 ## Installation
 
+To get started just create an html file named `index.html` with the following code :
+
 ```html
-<head>
-  <script src="https://cdn.jsdelivr.net/gh/Virgiel/dom-console/main.min.js"></script>
-</head>
-<script>
-  async function main() {
-    // Use the dom console api
-  }
-</script>
+<script src="https://cdn.jsdelivr.net/gh/Virgiel/dom-console/main.min.js"></script>
+<script src="./code.js"></script>
 ```
+
+And then create a javascript file named `code.js` in the same directory with the following code.
+
+```js
+print('Hello world!');
+```
+
+You can now open the html file in your browser and you should see line containing "Hello world!". You are ready to code!
+
+> What you have there is not a real website, if you want to learn real web development I can recommend you this [tutorials](https://developer.mozilla.org/en-US/docs/Learn).
 
 ## Usage
 
-This library automatically append the console to the document body. When the page is loaded the main function is called and you can start using the dom console api from there. All console.\* calls are redirected to the dom console.
+This library automatically append the dom console to the document body. All console.\* calls are redirected.
 
 ## API
 

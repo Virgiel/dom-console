@@ -12,11 +12,11 @@
         }, 10);
       });
     }
-    async function main() {
+    (async () => {
       for (let i = 0; i < 2000; i++) {
         print('Line n° i');
         await sleep();
       }
-    }
+    })();
   </script>
 </html>

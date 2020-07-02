@@ -7,7 +7,7 @@ const config = name => {
     path: `../assets/${name}.png`,
   };
 };
-const names = ['example', 'print', 'err', 'warn', 'success', 'info', 'input'];
+const names = ['print', 'err', 'warn', 'success', 'info', 'input'];
 (async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
