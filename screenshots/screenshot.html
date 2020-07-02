@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf8" />
+    <script src="https://cdn.jsdelivr.net/npm/file-saver/dist/FileSaver.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dom-to-image-more/src/dom-to-image-more.min.js"></script>
+    <script src="../main.js"></script>
+  </head>
+  <script>
+    const greeting = 'Hello world!';
+    const error = 'Oh oh. Something went wrong...';
+    const warning = "That's not that serious";
+    const congrats = 'Congratulation! You finally dit it!';
+    const infoMsg =
+      "A lunar distance, 384402 km, is the Moon's average distance to Earth.";
+    const lorem =
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas malesuada scelerisque ullamcorper. Fusce quis porta lectus, eu finibus magna. Ut id tortor et tellus fringilla dictum ut euismod est. Sed quis dictum massa, eu ultricies dolor. Nunc pellentesque risus ut urna congue ultricies. Donec finibus fermentum mauris, ut ultrices nibh interdum non. Morbi consequat justo nec lacinia varius. Donec dolor est, mollis vitae nunc in, viverra sagittis ante. Suspendisse mollis magna ipsum, ut suscipit dui hendrerit at. Donec vehicula lacus et aliquet fringilla. In sodales, justo sit amet mollis blandit, neque sem luctus nisi, a aliquet quam dui a magna. Nulla volutpat, libero vel semper egestas, risus sapien volutpat enim, pulvinar congue libero ex vitae diam. Nam consequat gravida interdum.';
+
+    function dataURLtoBlob(dataurl) {
+      var arr = dataurl.split(','),
+        mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]),
+        n = bstr.length,
+        u8arr = new Uint8Array(n);
+      while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+      }
+      return new Blob([u8arr], { type: mime });
+    }
+
+    async function capture(save, name) {
+      const scale = 2;
+      const node = document.getElementById('dom-console');
+
+      const style = {
+        transform: 'scale(' + scale + ')',
+        transformOrigin: 'top left',
+        width: node.offsetWidth + 'px',
+        height: node.offsetHeight + 'px',
+      };
+
+      const param = {
+        height: node.offsetHeight * scale,
+        width: node.offsetWidth * scale,
+        quality: 1,
+        style,
+      };
+
+      const dataUrl = await domtoimage.toPng(node, param);
+      if (save) {
+        window.saveAs(dataURLtoBlob(dataUrl), name);
+      } else {
+        const img = new Image();
+        img.src = dataUrl;
+        document.body.appendChild(img);
+        const text = document.createElement('p');
+        text.textContent = name;
+        document.body.appendChild(text);
+      }
+
+      clear();
+    }
+
+    async function generateScreenshot(save) {
+      print(greeting);
+      print(lorem);
+      err(error);
+      warn(warning);
+      success(congrats);
+      info(infoMsg);
+      input('What is your name ?');
+      await capture(save, 'example.png');
+      print(greeting);
+      await capture(save, 'print.png');
+      err(error);
+      await capture(save, 'err.png');
+      warn(warning);
+      await capture(save, 'warn.png');
+      success(congrats);
+      await capture(save, 'success.png');
+      info(infoMsg);
+      await capture(save, 'info.png');
+      input('What is your name ?');
+      await capture(save, 'input.png');
+    }
+
+    async function main() {
+      const testButton = document.createElement('button');
+      testButton.textContent = 'Test';
+      testButton.onclick = () => generateScreenshot(false);
+      document.body.appendChild(testButton);
+
+      const generateButton = document.createElement('button');
+      generateButton.textContent = 'Generate';
+      generateButton.onclick = () => generateScreenshot(true);
+      document.body.appendChild(generateButton);
+    }
+  </script>
+</html>
