@@ -23,7 +23,7 @@ I created this library to give people I teach programming a console interface si
 
 ## Usage
 
-This library automatically append the console to the document body. When the page is loaded the main function is called and you can start using the dom console api from there. All console.\* calls are redirected to the dom console so if you copy past code it will work.
+This library automatically append the console to the document body. When the page is loaded the main function is called and you can start using the dom console api from there. All console.\* calls are redirected to the dom console.
 
 ## API
 
@@ -77,7 +77,7 @@ function main() {
 
 ### info
 
-Print a new warning info to the console.
+Print a new info line to the console.
 
 ```js
 function main() {
@@ -93,7 +93,7 @@ Request input from the player, this function return a Promise.
 
 ```js
 async function main() {
-  const name = input('What is your name ?');
+  const name = await input('What is your name ?');
 }
 ```
 
