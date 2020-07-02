@@ -4,7 +4,7 @@ const config = name => {
   return {
     type: 'png',
     omitBackground: true,
-    path: `../screenshots/${name}.png`,
+    path: `../assets/${name}.png`,
   };
 };
 const names = ['example', 'print', 'err', 'warn', 'success', 'info', 'input'];

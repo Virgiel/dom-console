@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf8" />
+    <script src="../main.js"></script>
+  </head>
+  <button onclick="main()">
+    Start
+  </button>
+  <script>
+    const lorem =
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas malesuada scelerisque ullamcorper. Fusce quis porta lectus, eu finibus magna. Ut id tortor et tellus fringilla dictum ut euismod est. Sed quis dictum massa, eu ultricies dolor. Nunc pellentesque risus ut urna congue ultricies. Donec finibus fermentum mauris, ut ultrices nibh interdum non. Morbi consequat justo nec lacinia varius. Donec dolor est, mollis vitae nunc in, viverra sagittis ante. Suspendisse mollis magna ipsum, ut suscipit dui hendrerit at. Donec vehicula lacus et aliquet fringilla. In sodales, justo sit amet mollis blandit, neque sem luctus nisi, a aliquet quam dui a magna. Nulla volutpat, libero vel semper egestas, risus sapien volutpat enim, pulvinar congue libero ex vitae diam. Nam consequat gravida interdum.';
+
+    function sleep(time) {
+      return new Promise(resolve => {
+        setTimeout(() => {
+          resolve();
+        }, time);
+      });
+    }
+
+    async function main() {
+      clear();
+      print('Hello world !');
+      await sleep(1400);
+      print('I am a DOM console');
+      await sleep(1400);
+      print('I can print long text:\n' + lorem);
+      await sleep(1200);
+      err('I can report error');
+      await sleep(700);
+      warn('warning');
+      await sleep(700);
+      success('Or success');
+      await sleep(700);
+      input('You want to learn more about me?');
+      await sleep(400);
+      const node = document.querySelector('input');
+      await (async () => {
+        const answer = 'Yes';
+        for (const char of answer) {
+          node.value += char;
+          await sleep(250);
+        }
+      })();
+      await sleep(400);
+      node.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+      info('Read the doc below');
+      await sleep(4000);
+    }
+  </script>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf8" />
+    <script src="../main.js"></script>
+  </head>
+  <script>
+    function sleep() {
+      return new Promise(resolve => {
+        setTimeout(() => {
+          resolve();
+        }, 10);
+      });
+    }
+    async function main() {
+      for (let i = 0; i < 2000; i++) {
+        print('Line n° i');
+        await sleep();
+      }
+    }
+  </script>
+</html>

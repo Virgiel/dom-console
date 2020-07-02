@@ -4,7 +4,7 @@ I find Javascript to be a good language for learning to program. Hot reloading a
 
 I created this library to give people I teach programming a console interface similar to what you can have with Python or C.
 
-![Example](./screenshots/example.png)
+![Demo](./assets/example.html)
 
 **Disclaimer: This project is intended for my personal use and I will not improve or maintain it if I do not have the use of it. But you are free to use and copy my code.**
 
@@ -37,7 +37,7 @@ function main() {
 }
 ```
 
-![print](./screenshots/print.png)
+![print](./assets/print.png)
 
 ### err
 
@@ -49,7 +49,7 @@ function main() {
 }
 ```
 
-![err](./screenshots/err.png)
+![err](./assets/err.png)
 
 ### warn
 
@@ -61,7 +61,7 @@ function main() {
 }
 ```
 
-![warn](./screenshots/warn.png)
+![warn](./assets/warn.png)
 
 ### success
 
@@ -73,7 +73,7 @@ function main() {
 }
 ```
 
-![success](./screenshots/success.png)
+![success](./assets/success.png)
 
 ### info
 
@@ -85,7 +85,7 @@ function main() {
 }
 ```
 
-![info](./screenshots/info.png)
+![info](./assets/info.png)
 
 ### input
 
@@ -97,7 +97,7 @@ async function main() {
 }
 ```
 
-![input](./screenshots/input.png)
+![input](./assets/input.png)
 
 ## TODO
 

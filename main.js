@@ -1,5 +1,3 @@
-console.log('test');
-
 window.addEventListener('load', () => {
   let lineCount = 1;
   const grid = document.createElement('div');
@@ -7,7 +5,6 @@ window.addEventListener('load', () => {
   document.body.appendChild(grid);
   const style = document.createElement('style');
   style.textContent = /*css*/ `
-   
     #dom-console {
       margin: 0 auto;
       max-width: 100%;
@@ -90,7 +87,7 @@ window.addEventListener('load', () => {
       font-style: italic;
       background: #f5f5f5;
     }
-    #dom-console div:query:nth-child(odd) {
+    #dom-console div.query:nth-child(odd) {
       border-right: none;
     }
     #dom-console div.query:nth-child(even) {
@@ -120,6 +117,21 @@ window.addEventListener('load', () => {
       box-sizing: border-box;
       border: none;
       outline: none;      
+    }
+    
+    /* ----- Animation ----- */
+    #dom-console div { 
+      animation: insert 200ms ease;
+    }
+    @keyframes insert {
+      0% {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   `;
   document.head.appendChild(style);
