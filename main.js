@@ -237,26 +237,67 @@
     });
   }
 
-  // Create global console function
-  window.print = data => addConsoleLine(data);
-  window.err = data => addConsoleLine(data, 'err');
-  window.warn = data => addConsoleLine(data, 'warn');
-  window.success = data => addConsoleLine(data, 'success');
-  window.info = data => addConsoleLine(data, 'info');
-  window.input = query => addInputLine(query);
-  window.clear = () => {
-    grid.textContent = '';
-    lineCount = 1;
+  // Store old consol function to propagate
+
+  const oldLog = window.console.log;
+  const oldWarn = window.console.warn;
+  const oldErr = window.console.error;
+  const oldInfo = window.console.info;
+  const oldClear = window.console.clear;
+
+  // Create the global domConsole object
+  window.domConsole = {
+    log: data => {
+      addConsoleLine(data);
+      oldLog(data);
+    },
+    print: data => {
+      addConsoleLine(data);
+      oldLog(data);
+    },
+    err: data => {
+      addConsoleLine(data, 'err');
+      oldErr(data);
+    },
+    warn: data => {
+      addConsoleLine(data, 'warn');
+      oldWarn(data);
+    },
+    success: data => {
+      addConsoleLine(data, 'success');
+      oldLog(data);
+    },
+    info: data => {
+      addConsoleLine(data, 'info');
+      oldInfo(data);
+    },
+    input: query => addInputLine(query),
+    clear: () => {
+      grid.textContent = '';
+      lineCount = 1;
+      oldClear();
+    },
   };
 
+  // Create global console function
+  window.log = domConsole.log;
+  window.print = domConsole.print;
+  window.err = domConsole.err;
+  window.warn = domConsole.warn;
+  window.success = domConsole.success;
+  window.info = domConsole.info;
+  window.input = domConsole.input;
+  window.clear = domConsole.clear;
+
   // Link normal console function
-  window.console.log = data => window.print(data);
-  window.console.error = data => window.err(data);
-  window.console.warn = data => window.warn(data);
-  window.console.info = data => window.info(data);
+  window.console.log = domConsole.log;
+  window.console.error = domConsole.err;
+  window.console.warn = domConsole.warn;
+  window.console.info = domConsole.info;
 
   // Link global error handler
   window.onerror = event => window.err(event);
+  window.onunhandledrejection = event => window.err(event);
 
   window.addEventListener('load', () => {
     document.body.appendChild(grid);
