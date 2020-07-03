@@ -2,7 +2,7 @@
 
 This is a DOM-based console library. My goal is to ally the advantage of the javascript language, such as hot reloading and ubiquitous browser support, with the simplicity of the console interface of other languages like python.
 
-I think beginners should not have to learn HTML, CSS, DevTools, or install any compiler or library to start learning to code. Just copy two lines of code in an HTML file and start learning.
+I think beginners should not have to learn HTML, CSS, DevTools, or install any tools or library to start learning Javascript. Just copy two lines of code in an HTML file and start coding.
 
 ![Demo](./assets/demo.gif)
 
@@ -109,8 +109,7 @@ async function main() {
 
 This is a list of features I might add if I find the time and/or my projects require them
 
-- Pretty print objects
-- Paged console and prevent memory overflow with a ring buffer
+- Paged console with a ring buffer
 - Add more customization options
 - Make it embeddable
 
