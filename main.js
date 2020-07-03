@@ -122,6 +122,7 @@
     /* ----- Animation ----- */
     #dom-console div { 
       animation: insert 200ms ease;
+      transition: border-radius 200ms ease;
     }
     @keyframes insert {
       0% {
@@ -141,8 +142,46 @@
   let [grid, style] = createGrid();
 
   /** Format JS object as readable string (WIP) */
-  function prettyFormat(object) {
-    return JSON.stringify(object);
+  function prettyFormat(data) {
+    if (data == null) {
+      return 'null';
+    } else if (typeof data == 'symbol') {
+      return data.toString();
+    } else if (typeof data == 'object') {
+      if (data instanceof Date) {
+        return data.toString();
+      } else if (data instanceof Array) {
+        return `[${data.toString().replace(/,/g, ', ')}]`;
+      } else {
+        const circularReplacer = () => {
+          // Replace circular reference with "¤"
+          const seen = new WeakSet();
+          return (key, value) => {
+            if (
+              typeof value === 'object' &&
+              value !== null &&
+              !(value instanceof Boolean) &&
+              !(value instanceof Date) &&
+              !(value instanceof Number) &&
+              !(value instanceof RegExp) &&
+              !(value instanceof String)
+            ) {
+              if (seen.has(value)) {
+                return '¤';
+              }
+              seen.add(value);
+            }
+            return value;
+          };
+        };
+        // Use JSON to serialize and format then remove useless JSON noise
+        return JSON.stringify(data, circularReplacer(), '    ')
+          .replace(/"(.)*":/g, name => name.slice(1, name.length - 2) + ':')
+          .replace(/"¤"/g, '¤');
+      }
+    } else {
+      return data + '';
+    }
   }
 
   /** Add a new line on the dom console */
@@ -157,7 +196,7 @@
     grid.appendChild(lineInfo);
     // Add the line content
     const lineContent = document.createElement('div');
-    lineContent.textContent = content;
+    lineContent.textContent = prettyFormat(content);
     lineContent.className = type;
     grid.appendChild(lineContent);
   }
@@ -185,7 +224,7 @@
     grid.appendChild(inputContent);
     // Set up promise callback
     input.focus();
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
       input.onkeydown = event => {
         if (event.key === 'Enter') {
           grid.removeChild(queryInfo);
